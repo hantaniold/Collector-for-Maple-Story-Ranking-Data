@@ -1,0 +1,19 @@
+Readme for maplestoryrankingdatacollector
+Sean Hogan, 3/9/11
+
+tokens.l is a flex parser that parses ranking data so we only get a line of data with ranking, name, world, level.
+
+mapleget.sh is a shell script for grabbing a page off of the maplestory website from the legendary rankings, and head/tailing it to only get the data we want to parse. I think this is a bit problematic, hardcoding these values in. It might be nice to convert this to a tree structure somehow - my friend did this with a python API. It takes three arguments - the start rank, end rank, and output file.
+
+maplegetdeme.sh is similar to mapleget.sh, but works for the world rankings for the Demethos world (server). The arguments are the same.
+
+database.py uses sqlite interface to build a database from the formatted data produced by the flex. It takes one argument, the semi-raw data from the shell script, and outputs a sqlite database.
+
+The order is...
+
+shell -> flex -> python (sqlite) -> some sort of analysis, I'd presume.
+
+Problems with this:
+
+-Hardcoding of values
+-Latency on retrieving webpages. Currently to get a nice amount of data I am sshing into my school's computers and running the webpage getting script multiple times.
